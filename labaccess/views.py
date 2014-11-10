@@ -8,6 +8,8 @@ from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 #from django.template import RequestContext, loader
 
+from datetime import datetime
+
 from labaccess.models import Verantwortlicher
 from labaccess.models import Labor
 from labaccess.models import Zugang
@@ -86,17 +88,26 @@ def mail(request):
     anfragen = Zugang.objects.filter(zugang_l=vw)
     app = anfragen.exclude(zugang_genehmigt_date__isnull=True)
 
+
+    timestr = timezone.now().strftime(" %d. %B %Y %I:%M%p")
     verantw = vw.titel_text + " " + vw.firstname_text + " " + vw.verantwortlicher_text
-    subject = "Laborzugänge " + verantw + timezone.now()
+    subject = "Laborzugänge " + verantw + timestr
 
     msg = ""
     for e in app:
         msg += e.zugang_l.labor_text + "; " + e.zugang_matnr
-        + "; " + e.zugang_vname + "; " + e.zugang_nname
-        + "; " + e.zugang_matnr + "; " + e.zugang_nname + "\r\n"
+        msg += "; " + e.zugang_vname + "; " + e.zugang_nname
+        msg += "; " + e.zugang_matnr + "; " + e.zugang_nname + "\r\n"
 
-    send_mail(subject, msg, 'from@example.com',
-    ['to@example.com'], fail_silently=False)
+    send_mail(subject, msg, 'labaccess@dieneuewi.de',
+    ['rnkblr@gmail.com'], fail_silently=False)
 
     ##TODO lösche die Anfragen aus der DB oder setzt einen Wert für gesendet
+
+    return HttpResponseRedirect(reverse('sent'))
+
+
+def sent(request):
+    return HttpResponse("Mail abgeschickt.")
+
 

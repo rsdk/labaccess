@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^approve/$', views.approve, name='approve'),
     url(r'^approved/$', views.approved, name='approved'),
     url(r'^mail/$', views.mail, name='mail'),
+    url(r'^sent/$', views.sent, name='sent'),
     )
