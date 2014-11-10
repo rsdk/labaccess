@@ -1,9 +1,36 @@
 {% if vw %}
     <h1>{{ vw.titel_text }} {{ vw.firstname_text }} {{ vw.verantwortlicher_text }} </h1>
 
+
+
+<h2> Neue Anfragen </h2>
         <ul>
         {% for line in anfragen %}
-            <li> {{ line.id }}
+            <li> <form action="{% url 'approved' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" name="zid" id="line{{ forloop.counter }}" value="{{ line.id }}" />
+                <label for="line{{ forloop.counter }}">Approve</label><br />
+                </form>
+                <ul>
+                    <li> {{ line.zugang_l.labor_text }}</li>
+                    <li> MatNr: {{ line.zugang_matnr }}</li>
+                    <li> Vorname: {{ line.zugang_vname }}</li>
+                    <li> Nachname: {{ line.zugang_nname }}</li>
+                    <li> E-Mail: {{ line.zugang_email }}</li>
+                    <li> Begründung: {{ line.zugang_begruendung }}</li>
+                    <li> Anfrage von: {{ line.zugang_anfrage_date }}</li>
+            </ul></li>
+        {% endfor %}
+        </ul>
+
+<h2> Approved </h2> <form action="{% url 'mail' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" name="mail" id="mail" value="{{ vw.id }}" />
+                <label for="mail">Mail für approved abschicken</label><br />
+                </form>
+        <ul>
+        {% for line in app %}
+            <li> {{ forloop.counter }}
                 <ul>
                     <li> {{ line.zugang_l.labor_text }}</li>
                     <li> MatNr: {{ line.zugang_matnr }}</li>

@@ -8,4 +8,6 @@ urlpatterns = patterns('',
     url(r'^(?P<labor_id>\d+)/anfrage/$', views.anfrage, name='anfrage'),
     url(r'^(?P<labor_id>\d+)/genehmigung/$', views.genehmigung, name='genehmigung'),
     url(r'^approve/$', views.approve, name='approve'),
+    url(r'^approved/$', views.approved, name='approved'),
+    url(r'^mail/$', views.mail, name='mail'),
     )

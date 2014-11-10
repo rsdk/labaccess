@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.core.mail import send_mail
 
 from django.http import HttpResponse, HttpResponseRedirect
 #from django.template import RequestContext, loader
@@ -58,8 +59,41 @@ def genehmigung(request, labor_id):
 def approve(request):
     vw = get_object_or_404(Verantwortlicher, pk=2)
     anfragen = Zugang.objects.filter(zugang_l=vw)
-    print(anfragen)
-    context = {'vw': vw, 'anfragen': anfragen}
+    anfragen_offen = anfragen.filter(zugang_genehmight_date__isnull=True)
+    app = anfragen.exclude(zugang_genehmight_date__isnull=True)
+
+    context = {'vw': vw, 'anfragen': anfragen_offen, 'app': app}
     return render(request, 'labaccess/approve.html', context)
 
+
+def approved(request):
+    z_id = request.POST['zid']
+    ap = get_object_or_404(Zugang, pk=z_id)
+
+    # Speichern
+    ap.zugang_genehmight_date = timezone.now()
+    ap.save()
+
+    # Always return an HttpResponseRedirect after successfully dealing
+    # with POST data. This prevents data from being posted twice if a
+    # user hits the Back button.
+    return HttpResponseRedirect(reverse('approve'))
+
+
+def mail(request):
+    mail = request.POST['mail']
+    vw = get_object_or_404(Verantwortlicher, pk=mail)
+    anfragen = Zugang.objects.filter(zugang_l=vw)
+    app = anfragen.exclude(zugang_genehmight_date__isnull=True)
+
+    verantw = vw.titel_text + " " + vw.firstname_text + " " + vw.verantwortlicher_text
+    subject = "Laborzugänge " + verantw + timezone.now()
+
+    msg = ""
+    #for e in app:
+   #     msg += e.zugang_l.labor_text + "; " + e.zugang_matnr
+   #     + "; " + e.zugang_vname + "; " +
+
+    send_mail(subject, msg, 'from@example.com',
+    ['to@example.com'], fail_silently=False)
 
