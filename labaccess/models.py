@@ -30,7 +30,7 @@ class Zugang(models.Model):
     zugang_begruendung = models.CharField("Begründung", max_length=200)
     zugang_semester = models.CharField("Semester", max_length=2)
     zugang_anfrage_date = models.DateTimeField("Zugangsanfragen Datum")
-    zugang_genehmight_date = models.DateTimeField("Genehmigung Datum", null=True)
+    zugang_genehmigt_date = models.DateTimeField("Genehmigung Datum", null=True)
 
     def __str__(self):
         return self.zugang_v.verantwortlicher_text

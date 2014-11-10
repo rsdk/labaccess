@@ -8,7 +8,7 @@ class ZugangAdmin(admin.ModelAdmin):
     fieldsets = [
     (None,                  {'fields': ['zugang_v', 'zugang_l']}),
     ('Studentendaten',      {'fields': ['zugang_vname', 'zugang_nname', 'zugang_matnr', 'zugang_email', 'zugang_begruendung']}),
-    ('Datumsinformationen', {'fields': ['zugang_anfrage_date', 'zugang_genehmight_date']}),
+    ('Datumsinformationen', {'fields': ['zugang_anfrage_date', 'zugang_genehmigt_date']}),
     ]
 
 
