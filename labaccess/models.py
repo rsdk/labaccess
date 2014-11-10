@@ -28,6 +28,7 @@ class Zugang(models.Model):
     zugang_matnr = models.CharField("Matrikelnummer", max_length=5)
     zugang_email = models.EmailField(max_length=254)
     zugang_begruendung = models.CharField("Begründung", max_length=200)
+    zugang_semester = models.CharField("Semester", max_length=2)
     zugang_anfrage_date = models.DateTimeField("Zugangsanfragen Datum")
     zugang_genehmight_date = models.DateTimeField("Genehmigung Datum", null=True)
 

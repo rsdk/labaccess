@@ -90,9 +90,10 @@ def mail(request):
     subject = "Laborzugänge " + verantw + timezone.now()
 
     msg = ""
-    #for e in app:
-   #     msg += e.zugang_l.labor_text + "; " + e.zugang_matnr
-   #     + "; " + e.zugang_vname + "; " +
+    for e in app:
+        msg += e.zugang_l.labor_text + "; " + e.zugang_matnr
+        + "; " + e.zugang_vname + "; " + e.zugang_nname
+        + "; " + e.zugang_matnr + "; " + e.zugang_nname + "\r\n"
 
     send_mail(subject, msg, 'from@example.com',
     ['to@example.com'], fail_silently=False)
