@@ -1,0 +1,21 @@
+{% if vw %}
+    <h1>{{ vw.titel_text }} {{ vw.firstname_text }} {{ vw.verantwortlicher_text }} </h1>
+
+        <ul>
+        {% for line in anfragen %}
+            <li> {{ line.id }}
+                <ul>
+                    <li> {{ line.zugang_l.labor_text }}</li>
+                    <li> MatNr: {{ line.zugang_matnr }}</li>
+                    <li> Vorname: {{ line.zugang_vname }}</li>
+                    <li> Nachname: {{ line.zugang_nname }}</li>
+                    <li> E-Mail: {{ line.zugang_email }}</li>
+                    <li> Begründung: {{ line.zugang_begruendung }}</li>
+                    <li> Anfrage von: {{ line.zugang_anfrage_date }}</li>
+            </ul></li>
+        {% endfor %}
+        </ul>
+
+{% else %}
+    <p>Keine Daten vorhanden.</p>
+{% endif %}

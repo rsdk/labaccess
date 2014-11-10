@@ -1,0 +1,17 @@
+{% if verantwortliche %}
+    <ul>
+    {% for v in verantwortliche %}
+        <li>{{ v.verantwortlicher_text }}
+            <ul>
+            {% for labor in v.labor_set.all %}
+                <li><a href="{% url 'detail' labor.id %}">{{ labor.labor_text }}</a></li>
+            {% endfor %}
+            </ul>
+
+
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Keine Daten vorhanden.</p>
+{% endif %}

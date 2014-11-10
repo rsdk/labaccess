@@ -1,0 +1,26 @@
+
+<h1>{{ vw.titel_text }} {{ vw.firstname_text }} {{ vw.verantwortlicher_text }} </h1>
+
+<h1>{{ lab.labor_text }} {{ lab.laborname }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'anfrage' lab.id %}" method="post">
+{% csrf_token %}
+
+
+<input type="text" name="s_lname" id="1" value="" />
+<label for="1">Nachname</label><br />
+<input type="text" name="s_fname" id="2" value="" />
+<label for="2">Vorname</label><br />
+<input type="text" name="s_mnr" id="3" value="" />
+<label for="3">Matrikelnummer</label><br />
+<input type="text" name="s_email" id="4" value="" />
+<label for="4">E-Mail</label><br />
+<input type="text" name="s_begruendung" id="5" value="" />
+<label for="5">Begründung</label><br />
+
+
+<input type="submit" value="Absenden" />
+</form>
+
